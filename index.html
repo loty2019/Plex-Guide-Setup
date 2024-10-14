@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>How to Access Lorenzo's Plex Library</title>
+    <title>Accessing Lorenzo's Plex Library</title>
     <!-- Include Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Viewport Meta Tag -->
@@ -55,87 +55,51 @@
             background-color: #a0a0a0;
         }
     </style>
-    <!-- Scripts -->
-    <script>
-        function toggleStep(elem) {
-            const stepId = elem.getAttribute('data-step-id');
-            const span = elem.nextElementSibling;
-            span.classList.toggle('line-through');
-            elem.classList.toggle('checked');
-
-            // Save the state in localStorage
-            let completedSteps = JSON.parse(localStorage.getItem('completedSteps')) || {};
-            completedSteps[stepId] = elem.classList.contains('checked');
-            localStorage.setItem('completedSteps', JSON.stringify(completedSteps));
-        }
-
-        function toggleDarkMode() {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                document.getElementById('theme-toggle-text').textContent = 'Toggle Dark Mode';
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                document.getElementById('theme-toggle-text').textContent = 'Toggle Bright Mode';
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-
-        // On page load
-        document.addEventListener('DOMContentLoaded', function () {
-            // Apply theme preference
-            if (localStorage.getItem('theme') === 'dark') {
-                document.documentElement.classList.add('dark');
-                document.getElementById('theme-toggle-text').textContent = 'Toggle Bright Mode';
-            } else if (localStorage.getItem('theme') === 'light') {
-                document.documentElement.classList.remove('dark');
-                document.getElementById('theme-toggle-text').textContent = 'Toggle Dark Mode';
-            } else {
-                // Default to system preference
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.documentElement.classList.add('dark');
-                    document.getElementById('theme-toggle-text').textContent = 'Toggle Bright Mode';
-                } else {
-                    document.getElementById('theme-toggle-text').textContent = 'Toggle Dark Mode';
-                }
-            }
-
-            // Load completed steps
-            let completedSteps = JSON.parse(localStorage.getItem('completedSteps')) || {};
-            document.querySelectorAll('.circle').forEach(function (elem) {
-                const stepId = elem.getAttribute('data-step-id');
-                if (completedSteps[stepId]) {
-                    const span = elem.nextElementSibling;
-                    span.classList.add('line-through');
-                    elem.classList.add('checked');
-                }
-            });
-        });
-    </script>
 </head>
 
 <body class="font-sans leading-relaxed text-gray-800 dark:text-gray-200 dark:bg-gray-900">
     <div class="max-w-3xl mx-auto p-6">
-        <!-- Toggle Dark Mode Button -->
-        <div class="flex justify-end mb-4">
+        <!-- Toggle Buttons -->
+        <div class="flex justify-end mb-4 space-x-2">
+            <button onclick="toggleLanguage()"
+                class="px-4 py-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md">
+                <span id="language-toggle-icon"></span>
+            </button>
             <button onclick="toggleDarkMode()"
                 class="px-4 py-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md">
-                <span id="theme-toggle-text"></span>
+                <span id="theme-toggle-icon"></span>
             </button>
         </div>
-        
+
         <!-- Page Title -->
-        <h1 class="text-5xl font-bold mb-8 text-center">Accessing Lorenzo's Plex Library</h1>
+        <h1 class="text-5xl font-bold mb-8 text-center">
+            <span data-lang="en">Accessing Lorenzo's Plex Library</span>
+            <span data-lang="it" style="display:none;">Accesso alla Libreria Plex di Lorenzo</span>
+        </h1>
 
         <!-- Welcoming Message -->
         <p class="text-lg text-center mb-8 p-2 border rounded-lg bg-gray-200 dark:bg-gray-800">
-            Welcome 😇! Follow these simple steps to enjoy a world of movies and shows. Click on each circle to track you progress !<br> <span class="text-red-500">⚠️You will never be asked to
-            provide any credit card information, everything is free⚠️</span>
+            <span data-lang="en">
+                Welcome 😇! Follow these simple steps to enjoy a world of movies and shows.<br><span
+                    class="font-bold">Click on each circle to track your progress!</span><br> <span
+                    class="text-red-500">⚠️You
+                    will never be asked to provide any credit card information, everything is free⚠️</span>
+            </span>
+            <span data-lang="it" style="display:none;">
+                Benvenuto 😇! Segui questi semplici passaggi per goderti un mondo di film e serie TV.<br><span
+                    class="font-bold">Clicca su ogni cerchio per tracciare i tuoi progressi!</span><br> <span
+                    class="text-red-500">⚠️Non ti verrà mai chiesto di fornire informazioni sulla carta di credito, è
+                    tutto
+                    gratuito⚠️</span>
+            </span>
         </p>
 
         <!-- Step 1 -->
         <div class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Step 1: Create a Plex Account</h2>
+            <h2 class="text-2xl font-semibold mb-4">
+                <span data-lang="en">Step 1: Create a Plex Account</span>
+                <span data-lang="it" style="display:none;">Passo 1: Crea un Account Plex</span>
+            </h2>
             <ol class="space-y-2">
                 <!-- Step 1.1 -->
                 <li class="flex items-start">
@@ -143,10 +107,18 @@
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        Visit <a href="https://www.plex.tv/" target="_blank"
-                            class="text-blue-600 underline">plex.tv</a>.
-                        <img src="img/visit-plex.png" alt="Plex Sign Up Button"
-                            class="mt-2 border rounded-lg max-w-full h-auto">
+                        <span data-lang="en">
+                            Visit <a href="https://www.plex.tv/" target="_blank"
+                                class="text-blue-600 underline">plex.tv</a>.
+                            <img src="img/visit-plex.png" alt="Plex Website"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Visita <a href="https://www.plex.tv/" target="_blank"
+                                class="text-blue-600 underline">plex.tv</a>.
+                            <img src="img/visit-plex.png" alt="Sito Web Plex"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
                     </span>
                 </li>
                 <!-- Step 1.2 -->
@@ -155,9 +127,17 @@
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        Click on the <strong>"Sign Up"</strong> or <strong>"☰"</strong> at the top right corner.
-                        <img src="img/plex-signup-button.png" alt="Plex Sign Up Button"
-                            class="mt-2 border rounded-lg max-w-full h-auto">
+                        <span data-lang="en">
+                            Click on the <strong>"Sign Up"</strong> or <strong>"☰"</strong> at the top right corner.
+                            <img src="img/plex-signup-button.png" alt="Plex Sign Up Button"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Clicca su <strong>"Registrati"</strong> o sull'icona <strong>"☰"</strong> nell'angolo in
+                            alto a destra.
+                            <img src="img/plex-signup-button.png" alt="Pulsante Registrati Plex"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
                     </span>
                 </li>
                 <!-- Step 1.3 -->
@@ -166,9 +146,16 @@
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        Choose a way to create an account; there are 4 options!
-                        <img src="img/plex-signup-form.png" alt="Plex Sign Up Form"
-                            class="mt-2 border rounded-lg max-w-full h-auto">
+                        <span data-lang="en">
+                            Choose a way to create an account; there are 4 options!
+                            <img src="img/plex-signup-form.png" alt="Plex Sign Up Form"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Scegli un metodo per creare un account; ci sono 4 opzioni!
+                            <img src="img/plex-signup-form.png" alt="Modulo di Registrazione Plex"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
                     </span>
                 </li>
                 <!-- Step 1.4 -->
@@ -177,15 +164,29 @@
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3 pb-4">
-                        Click on <strong>"Create an Account"</strong>.
+                        <span data-lang="en">
+                            Click on <strong>"Create an Account"</strong>.
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Clicca su <strong>"Crea un Account"</strong>.
+                        </span>
                     </span>
                 </li>
 
                 <div class="flex items-start flex-col p-2 border rounded-lg bg-green-100 dark:bg-green-900">
-                    <span class="ml-3">Step 1 is done 🎉🎉🎉</span>
+                    <span class="ml-3">
+                        <span data-lang="en">Step 1 is done 🎉🎉🎉</span>
+                        <span data-lang="it" style="display:none;">Passo 1 completato 🎉🎉🎉</span>
+                    </span>
                     <span class="ml-3 italic">
-                        Remember the email address you used for signing up. Write it down, tattoo it on your
-                        arm—whatever works!
+                        <span data-lang="en">
+                            Remember the email address you used for signing up. Write it down, tattoo it on your
+                            arm—whatever works!
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Ricorda l'indirizzo email che hai usato per registrarti. Scrivilo, tatuatelo sul
+                            braccio—qualsiasi cosa funzioni!
+                        </span>
                     </span>
                 </div>
             </ol>
@@ -193,7 +194,10 @@
 
         <!-- Step 2 -->
         <div class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Step 2: Notify Me ❤️</h2>
+            <h2 class="text-2xl font-semibold mb-4">
+                <span data-lang="en">Step 2: Notify Me ❤️</span>
+                <span data-lang="it" style="display:none;">Passo 2: Avvisami ❤️</span>
+            </h2>
             <ol class="space-y-2">
                 <!-- Step 2.1 -->
                 <li class="flex items-start">
@@ -201,20 +205,37 @@
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3 pb-4">
-                        Send me (Lorenzo) a message containing the email address you used to sign up for Plex.
+                        <span data-lang="en">
+                            Send me (Lorenzo) a message containing the email address you used to sign up for Plex. If you can
+                            also include your username, Plex will generate one randomly for you.
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Inviami (a Lorenzo) un messaggio contenente l'indirizzo email che hai usato per iscriverti a Plex. Se
+                            puoi, includi anche il tuo nome utente; Plex ne genererà uno casualmente per te.
+                        </span>
                     </span>
                 </li>
                 <div class="mt-6 p-2 border rounded-lg bg-gray-200 dark:bg-gray-800">
                     <span class="p-2">
-                    I'm not stealing any of your information chill out 😩. I will send you a friend request on Plex. This is how you will access my library.
-                </span>
-            </div>
+                        <span data-lang="en">
+                            I'm not stealing any of your information, chill out 😩. I will send you a friend request on Plex.
+                            This is how you will access my library.
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Non sto rubando nessuna delle tue informazioni, rilassati 😩. Ti invierò una richiesta di amicizia
+                            su Plex. Questo è come accederai alla mia libreria.
+                        </span>
+                    </span>
+                </div>
             </ol>
         </div>
-
+        
         <!-- Step 3 -->
         <div class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Step 3: Accept Plex Friend Request</h2>
+            <h2 class="text-2xl font-semibold mb-4">
+                <span data-lang="en">Step 3: Accept Plex Friend Request</span>
+                <span data-lang="it" style="display:none;">Passo 3: Accetta la Richiesta di Amicizia su Plex</span>
+            </h2>
             <ol class="space-y-2">
                 <!-- Step 3.1 -->
                 <li class="flex items-start">
@@ -222,7 +243,12 @@
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        Wait for an email invitation. It should arrive within a few minutes. 🕙
+                        <span data-lang="en">
+                            Wait for an email invitation. It should arrive within a few minutes. 🕙
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Attendi un'email di invito. Dovrebbe arrivare entro pochi minuti. 🕙
+                        </span>
                     </span>
                 </li>
                 <!-- Step 3.2 -->
@@ -231,16 +257,23 @@
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3 pb-4">
-                        Open the invitation email and click on <strong>"I accept the invitation"</strong>.
-                        <img src="img/plex-invite-email.png" alt="Plex Invitation Email"
-                            class="mt-2 border rounded-lg max-w-full h-auto">
+                        <span data-lang="en">
+                            Open the invitation email and click on <strong>"I accept the invitation"</strong>.
+                            <img src="img/plex-invite-email.png" alt="Plex Invitation Email"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Apri l'email di invito e clicca su <strong>"Accetto l'invito"</strong>.
+                            <img src="img/plex-invite-email.png" alt="Email di Invito Plex"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
                     </span>
                 </li>
                 <!-- Step 3.3 -->
                 <li class="flex items-start mt-6 p-2 border rounded-lg bg-gray-200 dark:bg-gray-800">
-                    
                     <span class="ml-3">
-                        ❗Log in to your Plex account if prompted.
+                        <span data-lang="en">❗Log in to your Plex account if prompted.</span>
+                        <span data-lang="it" style="display:none;">❗Accedi al tuo account Plex se richiesto.</span>
                     </span>
                 </li>
                 <!-- Step 3.4 -->
@@ -249,168 +282,325 @@
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3 pb-4">
-                        My library should now be accessible in your Plex account. 🎥
-                        <img src="img/plex-library.png" alt="Plex Invitation Email" class="mt-2 border rounded-lg max-w-full h-auto">
+                        <span data-lang="en">
+                            My library should now be accessible in your Plex account. 🎥
+                            <img src="img/plex-library.png" alt="Plex Library" class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            La mia libreria dovrebbe ora essere accessibile nel tuo account Plex. 🎥
+                            <img src="img/plex-library.png" alt="Libreria Plex"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
                     </span>
                 </li>
                 <li class="flex items-start mt-6 p-2 border rounded-lg bg-yellow-200 dark:bg-yellow-800">
                     <span class="p-2">
-                        ⚠️ This my vary slightly if you are doing it on mobile. Regardless whatever plex asks you just accept it and you should be good.
+                        <span data-lang="en">
+                            ⚠️ This may vary slightly if you are doing it on mobile. Regardless, whatever Plex asks you, just
+                            accept it and you should be good.
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            ⚠️ Questo potrebbe variare leggermente se lo stai facendo su mobile. Indipendentemente da ciò che
+                            Plex ti chiede, accetta tutto e dovresti essere a posto.
+                        </span>
                     </span>
                 </li>
                 <li class="flex items-start mt-6 p-2 border rounded-lg bg-gray-200 dark:bg-gray-800">
-                    <span class="p-2">Note❗: If you don't see my library, please try to look for it on the side bar and if you still can't find it
-                    there
-                    then check in the <strong>"more >"</strong> section.</span>
+                    <span class="p-2">
+                        <span data-lang="en">
+                            Note❗: If you don't see my library, please try to look for it on the sidebar, and if you still can't
+                            find it there, then check in the <strong>"more >"</strong> section.
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Nota❗: Se non vedi la mia libreria, prova a cercarla nella barra laterale e se ancora non riesci a
+                            trovarla lì, controlla nella sezione <strong>"altro >"</strong>.
+                        </span>
+                    </span>
                 </li>
             </ol>
         </div>
-
+        
         <!-- Reassuring Message -->
         <div class="mb-8 p-4 border rounded-lg bg-green-100 dark:bg-green-900">
-            <h2 class="text-2xl font-semibold mb-4">You are ready to watch ! 🎉🎉🎉</h2>
+            <h2 class="text-2xl font-semibold mb-4">
+                <span data-lang="en">You are ready to watch! 🎉🎉🎉</span>
+                <span data-lang="it" style="display:none;">Sei pronto per guardare! 🎉🎉🎉</span>
+            </h2>
             <p class="text-lg">
-                You are all set to watch movies and shows on my Plex library. You can now access plex with your account on any device you want tv, tablet, phone and computer !! Everything will be there! <br>
-                <br>This doesn't end here... Let's kick it up a notch and make it even better by configuring <strong>Overseerr</strong> so you can add on your own movies and 
-                shows you want to watch with just a click of a button. 🖱️ <br><br>
-                You've got this! 💪
+                <span data-lang="en">
+                    You are all set to watch movies and shows on my Plex library. You can now access Plex with your account on
+                    any device you want—TV, tablet, phone, and computer! Everything will be there! <br><br>
+                    This doesn't end here... Let's kick it up a notch and make it even better by configuring
+                    <strong>Overseerr</strong> so you can add your own movies and shows you want to watch with just a click of a
+                    button. 🖱️ <br><br> This will be an app on your phone!<br>
+                    You've got this! 💪
+                </span>
+                <span data-lang="it" style="display:none;">
+                    Sei pronto per guardare film e serie TV nella mia libreria Plex. Ora puoi accedere a Plex con il tuo account
+                    su qualsiasi dispositivo tu voglia—TV, tablet, telefono e computer! Ci sarà tutto! <br><br>
+                    Ma non finisce qui... Facciamo un passo avanti e rendiamolo ancora migliore configurando
+                    <strong>Overseerr</strong> così potrai aggiungere i tuoi film e serie che desideri guardare con un semplice
+                    clic. 🖱️ <br><br> Sarà un'app sul tuo telefono!<br>
+                    Ce la puoi fare! 💪
+                </span>
             </p>
         </div>
+        
         <!-- Step 4 -->
         <div class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Step 4: Accessing Overseerr</h2>
+            <h2 class="text-2xl font-semibold mb-4">
+                <span data-lang="en">Step 4: Accessing Overseerr (Mobile)</span>
+                <span data-lang="it" style="display:none;">Passo 4: Accedere a Overseerr (Mobile)</span>
+            </h2>
             <li class="flex items-start mt-6 p-2 border rounded-lg bg-gray-200 dark:bg-gray-800">
                 <span class="p-2">
-                    ❗These steps are necessary only the <strong>first time</strong> you sign up! And exist for <strong>security</strong> purposes. You wont have to do this again, the app will log you straight in.❗
+                    <span data-lang="en">
+                        ❗These steps are necessary only the <strong>first time</strong> you sign up! They exist for
+                        <strong>security</strong> purposes. You won't have to do this again; the app will log you straight in.❗
+                    </span>
+                    <span data-lang="it" style="display:none;">
+                        ❗Questi passaggi sono necessari solo la <strong>prima volta</strong> che ti registri! Esistono per
+                        motivi di <strong>sicurezza</strong>. Non dovrai farlo di nuovo; l'app ti accederà direttamente.❗
+                    </span>
                 </span>
             </li>
             <ol class="space-y-2 pt-4">
+                <!-- Step 4.0 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step4-1-0"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        <span data-lang="en">
+                            Open your phone and go to <strong>Safari</strong>. Safari is needed! You can't use Chrome or any
+                            other browser.
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Apri il tuo telefono e vai su <strong>Safari</strong>. Safari è necessario! Non puoi usare Chrome o
+                            altri browser.
+                        </span>
+                    </span>
+                </li>
+                <li class="flex items-start mt-6 p-2 border rounded-lg bg-gray-200 dark:bg-gray-800">
+                    <span class="p-2">
+                        <span data-lang="en">
+                            ❗If you have an <strong>Android</strong> device, visit <a
+                                href="https://www.brandeis.edu/its/support/website-shortcut.html" target="_blank"
+                                class="text-blue-600 underline">this guide</a>. Replace Step 5 with what the guide says.❗
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            ❗Se hai un dispositivo <strong>Android</strong>, visita <a
+                                href="https://www.brandeis.edu/its/support/website-shortcut.html" target="_blank"
+                                class="text-blue-600 underline">questa guida</a>. Sostituisci il Passo 5 con ciò che dice la
+                            guida.❗
+                        </span>
+                    </span>
+                </li>
                 <!-- Step 4.1 -->
                 <li class="flex items-start">
                     <div onclick="toggleStep(this)" data-step-id="step4-1"
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        Go to <a href="https://overseerr.lorenzoorio.com" target="_blank"
-                            class="text-blue-600 underline">overseerr.lorenzoorio.com</a>. You will be met with a Cloudflare page. These nice guys handle the security for me. Don't be scared 😅
-                            <img src="img/cloudflare-page.png" alt="Cloudflare page" class="mt-2 border rounded-lg max-w-full h-auto">
+                        <span data-lang="en">
+                            Go to <a href="https://overseerr.lorenzoorio.com" target="_blank"
+                                class="text-blue-600 underline">overseerr.lorenzoorio.com</a>. You will be met with a Cloudflare
+                            page. These nice guys handle the security for me. Don't be scared 😅
+                            <img src="img/cloudflare-page.png" alt="Cloudflare page"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Vai su <a href="https://overseerr.lorenzoorio.com" target="_blank"
+                                class="text-blue-600 underline">overseerr.lorenzoorio.com</a>. Ti troverai davanti a una pagina
+                            di Cloudflare. Questi bravi ragazzi gestiscono la sicurezza per me. Non avere paura 😅
+                            <img src="img/cloudflare-page.png" alt="Pagina Cloudflare"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
                     </span>
                 </li>
+                <!-- Step 4.1.1 -->
                 <li class="flex items-start">
                     <div onclick="toggleStep(this)" data-step-id="step4-1-1"
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        Enter the email that you used for your Plex account and click on <strong>"Send me a code"</strong>.
+                        <span data-lang="en">
+                            Enter the email that you used for your Plex account and click on <strong>"Send me a code"</strong>.
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Inserisci l'email che hai usato per il tuo account Plex e clicca su <strong>"Inviami un
+                                codice"</strong>.
+                        </span>
                     </span>
                 </li>
+                <!-- Step 4.1.2 -->
                 <li class="flex items-start">
                     <div onclick="toggleStep(this)" data-step-id="step4-1-2"
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
-                    <span class="ml-3">
-                          <strong>"Send me a code"</strong>.
+                    <span class="ml-3 pb-4">
+                        <span data-lang="en">
+                            You will receive an email in a few minutes from <strong>Cloudflare</strong> containing a random
+                            code. Enter it and then click <strong>"Sign in"</strong>.
+                            <img src="img/enter-code.png" alt="Cloudflare enter code"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Riceverai un'email in pochi minuti da <strong>Cloudflare</strong> contenente un codice casuale.
+                            Inseriscilo e poi clicca su <strong>"Accedi"</strong>.
+                            <img src="img/enter-code.png" alt="Cloudflare inserisci codice"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                    </span>
+                </li>
+                <li class="flex items-start mt-6 p-2 border rounded-lg bg-gray-200 dark:bg-gray-800">
+                    <span class="p-2">
+                        <span data-lang="en">
+                            ❗If you don't receive any code, first check your spam email, then wait a bit more. If you still
+                            haven't received anything, message me since I might need to add your email to Cloudflare.❗
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            ❗Se non ricevi alcun codice, controlla prima la tua posta indesiderata, poi aspetta un po' di più.
+                            Se ancora non hai ricevuto nulla, mandami un messaggio perché potrei dover aggiungere la tua email a
+                            Cloudflare.❗
+                        </span>
                     </span>
                 </li>
                 <!-- Step 4.2 -->
-                <li class="flex items-start">
+                <li class="flex items-start pt-4">
                     <div onclick="toggleStep(this)" data-step-id="step4-2"
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        Click on <strong>"Create an account"</strong> instead of logging in with Plex.
-                        <img src="images/overseerr-create-account.png" alt="Overseerr Create Account"
-                            class="mt-2 border rounded-lg max-w-full h-auto">
+                        <span data-lang="en">
+                            Click on <strong>"Use your Overseerr account"</strong>; I would have created it beforehand.
+                            <img src="img/overseerr-login.png" alt="Overseerr Login"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Clicca su <strong>"Usa il tuo account Overseerr"</strong>.
+                            <img src="img/overseerr-login.png" alt="Accesso Overseerr"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                    </span>
+                </li>
+                <li class="flex items-start mt-6 p-2 border rounded-lg bg-gray-200 dark:bg-gray-800">
+                    <span class="p-2">
+                        <span data-lang="en">
+                            ❗<u>Don't</u> use the big orange "Sign in" button; that's for other things!!❗
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            ❗<u>Non</u> usare il grande pulsante arancione "Accedi"; serve per altre cose!!❗
+                        </span>
                     </span>
                 </li>
                 <!-- Step 4.3 -->
-                <li class="flex items-start">
+                <li class="flex items-start pt-4">
                     <div onclick="toggleStep(this)" data-step-id="step4-3"
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        Use the email address you used for Plex and the temporary password provided to you by Lorenzo,
-                        which is <strong>"changemepls"</strong>.
+                        <span data-lang="en">
+                            Use the email address you used for Plex and the temporary password provided to you, which is
+                            <strong>"changemepls"</strong>.
+                            <img src="img/overseerr-login-credentials.png" alt="Overseerr Login Credentials"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Usa l'indirizzo email che hai usato per Plex e la password temporanea fornita, che è
+                            <strong>"cambiamiperfavore"</strong>.
+                            <img src="img/overseerr-login-credentials.png" alt="Credenziali Accesso Overseerr"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
                     </span>
                 </li>
                 <!-- Step 4.4 -->
-                <li class="flex items-start">
-                    <div onclick="toggleStep(this)" data-step-id="step4-4"
+                <li class="flex items-start pt-4">
+                    <div onclick="toggleStep(this)" data-step-id="step4-4-0"
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        Click on <strong>"Sign Up"</strong>. You're almost there!
+                        <span data-lang="en">
+                            <u><strong class="text-xl">Change the password!!!!!</strong></u> Click on your profile icon (top
+                            right corner) and select <strong>"Settings"</strong>.
+                            <img src="img/settings1.png" alt="Overseerr Settings"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            <u><strong class="text-xl">Cambia la password!!!!!</strong></u> Clicca sulla tua icona profilo
+                            (angolo in alto a destra) e seleziona <strong>"Impostazioni"</strong>.
+                            <img src="img/settings1.png" alt="Impostazioni Overseerr"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
                     </span>
                 </li>
-                <!-- Step 4.5 (Nested Steps) -->
-                <li class="flex items-start">
-                    <div class="ml-8">
-                        <ol class="space-y-2">
-                            <!-- Step 4.5.1 -->
-                            <li class="flex items-start">
-                                <div onclick="toggleStep(this)" data-step-id="step4-5-1"
-                                    class="circle mt-1 w-4 h-4 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
-                                </div>
-                                <span class="ml-3">
-                                    Once logged in, immediately change your password:
+                <!-- Step 4.4.1 -->
+                <li class="flex items-start pt-4">
+                    <div onclick="toggleStep(this)" data-step-id="step4-4-1"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        <span data-lang="en">
+                            Click on <strong>"General"</strong> and select <strong>"Password"</strong>. There you can change it
+                            to whatever you want.
+                            <img src="img/settings.png" alt="Overseerr Change Password"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Clicca su <strong>"Generale"</strong> e seleziona <strong>"Password"</strong>. Lì puoi cambiarla
+                            come preferisci.
+                            <img src="img/settings.png" alt="Overseerr Cambia Password"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                    </span>
+                </li>
+                <!-- Completion Message -->
+                <li class="flex items-center">
+                    <div class="pt-4">
+                        <div class="mb-8 p-4 border rounded-lg bg-green-100 dark:bg-green-900">
+                            <h2 class="text-2xl font-semibold mb-4">🎉🎉🎉</h2>
+                            <p class="text-lg">
+                                <span data-lang="en">
+                                    You made it! You can now <strong>request</strong> movies and shows to be added to the
+                                    library directly from the app by clicking <strong>"Request"</strong>. You can also see
+                                    what's coming soon and what's popular.
                                 </span>
-                            </li>
-                            <!-- Step 4.5.2 -->
-                            <li class="flex items-start ml-6">
-                                <div onclick="toggleStep(this)" data-step-id="step4-5-2"
-                                    class="circle mt-1 w-3 h-3 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
-                                </div>
-                                <span class="ml-3">
-                                    Click on your profile icon at the top right corner.
+                                <span data-lang="it" style="display:none;">
+                                    Ce l'hai fatta! Ora puoi <strong>richiedere</strong> film e serie da aggiungere alla
+                                    libreria direttamente dall'app cliccando su <strong>"Richiedi"</strong>. Puoi anche vedere
+                                    cosa sta per arrivare e cosa è popolare.
                                 </span>
-                            </li>
-                            <!-- Step 4.5.3 -->
-                            <li class="flex items-start ml-6">
-                                <div onclick="toggleStep(this)" data-step-id="step4-5-3"
-                                    class="circle mt-1 w-3 h-3 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
-                                </div>
-                                <span class="ml-3">
-                                    Select <strong>"Settings"</strong>.
-                                </span>
-                            </li>
-                            <!-- Step 4.5.4 -->
-                            <li class="flex items-start ml-6">
-                                <div onclick="toggleStep(this)" data-step-id="step4-5-4"
-                                    class="circle mt-1 w-3 h-3 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
-                                </div>
-                                <span class="ml-3">
-                                    Go to the <strong>"Password"</strong> section.
-                                </span>
-                            </li>
-                            <!-- Step 4.5.5 -->
-                            <li class="flex items-start ml-6">
-                                <div onclick="toggleStep(this)" data-step-id="step4-5-5"
-                                    class="circle mt-1 w-3 h-3 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
-                                </div>
-                                <span class="ml-3">
-                                    Enter a new password and save changes.
-                                </span>
-                            </li>
-                        </ol>
+                            </p>
+                            <img src="img/request.png" alt="Overseerr Request" class="mt-2 border rounded-lg max-w-full h-auto">
+                        </div>
                     </div>
                 </li>
             </ol>
         </div>
-
-        <!-- Step 5 -->
+        
+        <!-- Step 5: Add to Home Screen -->
         <div class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Step 5: Adjust Overseerr Settings</h2>
-            <p>
-                To customize your viewing experience and reduce unwanted content:
-            </p>
-            <ol class="space-y-2 mt-2">
+            <h2 class="text-2xl font-semibold mb-4">
+                <span data-lang="en">Step 5: Make Overseerr an App on Your Home Screen (It's Easy!)</span>
+                <span data-lang="it" style="display:none;">Passo 5: Aggiungi Overseerr alla Schermata Home (È Facile!)</span>
+            </h2>
+            <ol class="space-y-2">
                 <!-- Step 5.1 -->
                 <li class="flex items-start">
                     <div onclick="toggleStep(this)" data-step-id="step5-1"
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        Click on your profile icon and select <strong>"Settings"</strong>.
+                        <span data-lang="en">
+                            Make sure you are on <strong>Safari</strong> on your iPhone or iPad and on the Overseerr website (<a
+                                href="https://overseerr.lorenzoorio.com/" target="_blank"
+                                class="text-blue-600 underline">overseerr.lorenzoorio.com</a>).
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Assicurati di essere su <strong>Safari</strong> sul tuo iPhone o iPad e sul sito di Overseerr (<a
+                                href="https://overseerr.lorenzoorio.com/" target="_blank"
+                                class="text-blue-600 underline">overseerr.lorenzoorio.com</a>).
+                        </span>
                     </span>
                 </li>
                 <!-- Step 5.2 -->
@@ -419,7 +609,17 @@
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        Navigate to the <strong>"Regions"</strong> section.
+                        <span data-lang="en">
+                            Tap the <strong>Share</strong> button at the bottom of the Safari window. It looks like a square
+                            with an arrow pointing upwards.
+                            <img src="img/share-button.jpg" alt="Share Button" class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Tocca il pulsante <strong>Condividi</strong> in basso nella finestra di Safari. Sembra un quadrato
+                            con una freccia rivolta verso l'alto.
+                            <img src="img/share-button.jpg" alt="Pulsante Condividi"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
                     </span>
                 </li>
                 <!-- Step 5.3 -->
@@ -428,9 +628,16 @@
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        Set the region to <strong>"United States"</strong>.
-                        <img src="images/overseerr-region-settings.png" alt="Overseerr Region Settings"
-                            class="mt-2 border rounded-lg max-w-full h-auto">
+                        <span data-lang="en">
+                            Scroll down and tap <strong>Add to Home Screen</strong>.
+                            <img src="img/add-to-homescreen.jpg" alt="Add to Home Screen"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Scorri verso il basso e tocca <strong>Aggiungi a Home</strong>.
+                            <img src="img/add-to-homescreen.jpg" alt="Aggiungi a Schermata Home"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
                     </span>
                 </li>
                 <!-- Step 5.4 -->
@@ -439,47 +646,188 @@
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        Save your changes. Voilà! Less weird stuff, more awesome movies.
+                        <span data-lang="en">
+                            Choose a name for the shortcut (e.g., "Overseerr") and tap <strong>Add</strong>.
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Scegli un nome per il collegamento (es., "Overseerr") e tocca <strong>Aggiungi</strong>.
+                        </span>
                     </span>
                 </li>
-            </ol>
-            <p class="mt-4">
-                This will help filter out unwanted content and improve your browsing experience.
-            </p>
-        </div>
-
-        <!-- Step 6 -->
-        <div class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Step 6: Start Enjoying Movies and Shows</h2>
-            <ol class="space-y-2">
-                <!-- Step 6.1 -->
+                <!-- Step 5.5 -->
                 <li class="flex items-start">
-                    <div onclick="toggleStep(this)" data-step-id="step6-1"
+                    <div onclick="toggleStep(this)" data-step-id="step5-5"
                         class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
                     </div>
                     <span class="ml-3">
-                        You're all set! You can now browse and request movies or TV shows through Overseerr, and watch
-                        them via your Plex account.
+                        <span data-lang="en">
+                            Now, you'll see the icon on your home screen. Tap the new icon to launch Overseerr like an app!
+                            <img src="img/overseerr-homescreen-icon.jpg" alt="Overseerr Home Screen Icon"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            Ora vedrai l'icona sulla tua schermata home. Tocca la nuova icona per avviare Overseerr come un'app!
+                            <img src="img/overseerr-homescreen-icon.jpg" alt="Icona Home Screen Overseerr"
+                                class="mt-2 border rounded-lg max-w-full h-auto">
+                        </span>
                     </span>
                 </li>
-                <!-- Step 6.2 -->
-                <li class="flex items-start">
-                    <div onclick="toggleStep(this)" data-step-id="step6-2"
-                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                <!-- Completion Message -->
+                <li class="flex items-center">
+                    <div class="pt-4">
+                        <div class="mb-8 p-4 border rounded-lg bg-green-100 dark:bg-green-900">
+                            <h2 class="text-2xl font-semibold mb-4">🎉🎉🎉</h2>
+                            <p class="text-lg font-bold">
+                                <span data-lang="en">
+                                    Perfect! Everything is all set!!! You can now access my library and request movies and shows
+                                    from your phone. <br> Watch movies and shows using Plex and request new ones using Overseerr!
+                                </span>
+                                <span data-lang="it" style="display:none;">
+                                    Perfetto! È tutto pronto!!! Ora puoi accedere alla mia libreria e richiedere film e serie
+                                    dal tuo telefono. <br>Guarda film e serie usando Plex e richiedine di nuovi usando Overseerr!
+                                </span>
+                            </p>
+                            <h2 class="text-2xl font-semibold mt-4">🎉🎉🎉</h2>
+                        </div>
                     </div>
-                    <span class="ml-3">
-                        If you have any questions or need assistance, feel free to reach out to me.
+                </li>
+                <li class="flex items-start mt-6 p-2 border rounded-lg bg-yellow-200 dark:bg-yellow-800">
+                    <span class="p-2">
+                        <span data-lang="en">
+                            ⚠️ Even though it's rare, you might come across some strange or inappropriate movie covers (e.g.,
+                            weird Asian adult covers) in Overseerr. 😅 This is totally normal and happens because some movies
+                            aren't correctly categorized on IMDb or other databases.<br><br>
+                            Don't worry; these aren't part of the actual library and can be ignored. If you see something
+                            inappropriate, feel free to let me know, and I'll fix it as soon as possible! 👍
+                        </span>
+                        <span data-lang="it" style="display:none;">
+                            ⚠️ Anche se è raro, potresti imbatterti in alcune strane o inappropriate copertine di film (es.,
+                            strane copertine asiatiche per adulti) in Overseerr. 😅 Questo è totalmente normale e accade perché
+                            alcuni film non sono correttamente categorizzati su IMDb o altri database.<br><br>
+                            Non preoccuparti; questi non fanno parte della libreria effettiva e possono essere ignorati. Se vedi
+                            qualcosa di inappropriato, sentiti libero di farmelo sapere e lo sistemerò il prima possibile! 👍
+                        </span>
                     </span>
                 </li>
             </ol>
         </div>
 
+       
         <!-- Footer -->
         <div class="text-center mt-12">
             <p class="text-gray-600 dark:text-gray-400">&copy; 2024 Lorenzo Orio</p>
-            <p class="text-gray-500 dark:text-gray-500">No animals were harmed in the making of this guide.</p>
+            <p class="text-gray-500 dark:text-gray-500">
+                <span data-lang="en">No animals were harmed in the making of this guide.</span>
+                <span data-lang="it" style="display:none;">Nessun animale è stato maltrattato nella realizzazione di questa
+                    guida.</span>
+            </p>
         </div>
-    </div>
-</body>
+        </div>
+        
+        <!-- Scripts -->
+        <script>
+            function toggleStep(elem) {
+                const stepId = elem.getAttribute('data-step-id');
+                const span = elem.nextElementSibling;
+                span.classList.toggle('line-through');
+                elem.classList.toggle('checked');
 
-</html>
+                // Save the state in localStorage
+                let completedSteps = JSON.parse(localStorage.getItem('completedSteps')) || {};
+                completedSteps[stepId] = elem.classList.contains('checked');
+                localStorage.setItem('completedSteps', JSON.stringify(completedSteps));
+            }
+
+            function toggleDarkMode() {
+                const lang = localStorage.getItem('language') || 'en';
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+                updateThemeToggleIcon(lang);
+            }
+
+            function toggleLanguage() {
+                const currentLanguage = localStorage.getItem('language') || 'en';
+                const newLanguage = currentLanguage === 'en' ? 'it' : 'en';
+                localStorage.setItem('language', newLanguage);
+                setLanguage(newLanguage);
+            }
+
+            function setLanguage(lang) {
+                document.querySelectorAll('[data-lang]').forEach(function (elem) {
+                    if (elem.getAttribute('data-lang') === lang) {
+                        elem.style.display = '';
+                    } else {
+                        elem.style.display = 'none';
+                    }
+                });
+
+                updateLanguageToggleIcon(lang);
+                updateThemeToggleIcon(lang);
+
+                // Set the lang attribute on the html tag
+                document.documentElement.setAttribute('lang', lang);
+            }
+
+            function updateLanguageToggleIcon(lang) {
+                const languageToggleIcon = document.getElementById('language-toggle-icon');
+                if (lang === 'en') {
+                    // Show Italian flag to switch to Italian
+                    languageToggleIcon.innerHTML = '<img src="img/flag-it.png" alt="Italiano" class="h-6 w-6">';
+                } else {
+                    // Show English flag to switch to English
+                    languageToggleIcon.innerHTML = '<img src="img/flag-en.png" alt="English" class="h-6 w-6">';
+                }
+            }
+
+            function updateThemeToggleIcon() {
+                    const themeToggleIcon = document.getElementById('theme-toggle-icon');
+                    if (document.documentElement.classList.contains('dark')) {
+                        // In dark mode, show sun emoji
+                        themeToggleIcon.textContent = '☀️';
+                        themeToggleIcon.title = 'Switch to light mode';
+                    } else {
+                        // In light mode, show moon emoji
+                        themeToggleIcon.textContent = '🌙';
+                        themeToggleIcon.title = 'Switch to dark mode';
+                    }
+                }
+
+            // On page load
+            document.addEventListener('DOMContentLoaded', function () {
+                // Apply theme preference
+                const lang = localStorage.getItem('language') || 'en';
+
+                if (localStorage.getItem('theme') === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else if (localStorage.getItem('theme') === 'light') {
+                    document.documentElement.classList.remove('dark');
+                } else {
+                    // Default to system preference
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        document.documentElement.classList.add('dark');
+                    }
+                }
+
+                // Load completed steps
+                let completedSteps = JSON.parse(localStorage.getItem('completedSteps')) || {};
+                document.querySelectorAll('.circle').forEach(function (elem) {
+                    const stepId = elem.getAttribute('data-step-id');
+                    if (completedSteps[stepId]) {
+                        const span = elem.nextElementSibling;
+                        span.classList.add('line-through');
+                        elem.classList.add('checked');
+                    }
+                });
+
+                // Apply language preference and update icons
+                setLanguage(lang);
+            });
+        </script>
+        </body>
+        
+        </html>
