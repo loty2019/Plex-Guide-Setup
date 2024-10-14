@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-100 dark:bg-gray-900">
+
+<head>
+    <meta charset="UTF-8">
+    <title>How to Access Lorenzo's Plex Library</title>
+    <!-- Include Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Viewport Meta Tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tailwind Dark Mode Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Use class-based dark mode
+        }
+    </script>
+    <!-- Styles -->
+    <style>
+        .circle {
+            position: relative;
+        }
+
+        .circle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background-color: gray;
+            transition: width 0.2s, height 0.2s;
+        }
+
+        .circle.checked::after {
+            width: 50%;
+            height: 50%;
+        }
+
+        /* Dark mode styles */
+        .dark .border-gray-500 {
+            border-color: #a0a0a0;
+        }
+
+        .dark .text-gray-600 {
+            color: #d0d0d0;
+        }
+
+        .dark .text-gray-500 {
+            color: #b0b0b0;
+        }
+
+        .dark .circle::after {
+            background-color: #a0a0a0;
+        }
+    </style>
+    <!-- Scripts -->
+    <script>
+        function toggleStep(elem) {
+            const stepId = elem.getAttribute('data-step-id');
+            const span = elem.nextElementSibling;
+            span.classList.toggle('line-through');
+            elem.classList.toggle('checked');
+
+            // Save the state in localStorage
+            let completedSteps = JSON.parse(localStorage.getItem('completedSteps')) || {};
+            completedSteps[stepId] = elem.classList.contains('checked');
+            localStorage.setItem('completedSteps', JSON.stringify(completedSteps));
+        }
+
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('theme-toggle-text').textContent = 'Toggle Dark Mode';
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                document.getElementById('theme-toggle-text').textContent = 'Toggle Bright Mode';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // On page load
+        document.addEventListener('DOMContentLoaded', function () {
+            // Apply theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.getElementById('theme-toggle-text').textContent = 'Toggle Bright Mode';
+            } else if (localStorage.getItem('theme') === 'light') {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('theme-toggle-text').textContent = 'Toggle Dark Mode';
+            } else {
+                // Default to system preference
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                    document.getElementById('theme-toggle-text').textContent = 'Toggle Bright Mode';
+                } else {
+                    document.getElementById('theme-toggle-text').textContent = 'Toggle Dark Mode';
+                }
+            }
+
+            // Load completed steps
+            let completedSteps = JSON.parse(localStorage.getItem('completedSteps')) || {};
+            document.querySelectorAll('.circle').forEach(function (elem) {
+                const stepId = elem.getAttribute('data-step-id');
+                if (completedSteps[stepId]) {
+                    const span = elem.nextElementSibling;
+                    span.classList.add('line-through');
+                    elem.classList.add('checked');
+                }
+            });
+        });
+    </script>
+</head>
+
+<body class="font-sans leading-relaxed text-gray-800 dark:text-gray-200 dark:bg-gray-900">
+    <div class="max-w-3xl mx-auto p-6">
+        <!-- Toggle Dark Mode Button -->
+        <div class="flex justify-end mb-4">
+            <button onclick="toggleDarkMode()"
+                class="px-4 py-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md">
+                <span id="theme-toggle-text"></span>
+            </button>
+        </div>
+        
+        <!-- Page Title -->
+        <h1 class="text-5xl font-bold mb-8 text-center">Accessing Lorenzo's Plex Library</h1>
+
+        <!-- Welcoming Message -->
+        <p class="text-lg text-center mb-8 p-2 border rounded-lg bg-gray-200 dark:bg-gray-800">
+            Welcome 😇! Follow these simple steps to enjoy a world of movies and shows. Click on each circle to track you progress !<br> <span class="text-red-500">⚠️You will never be asked to
+            provide any credit card information, everything is free⚠️</span>
+        </p>
+
+        <!-- Step 1 -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Step 1: Create a Plex Account</h2>
+            <ol class="space-y-2">
+                <!-- Step 1.1 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step1-1"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        Visit <a href="https://www.plex.tv/" target="_blank"
+                            class="text-blue-600 underline">plex.tv</a>.
+                        <img src="img/visit-plex.png" alt="Plex Sign Up Button"
+                            class="mt-2 border rounded-lg max-w-full h-auto">
+                    </span>
+                </li>
+                <!-- Step 1.2 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step1-2"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        Click on the <strong>"Sign Up"</strong> or <strong>"☰"</strong> at the top right corner.
+                        <img src="img/plex-signup-button.png" alt="Plex Sign Up Button"
+                            class="mt-2 border rounded-lg max-w-full h-auto">
+                    </span>
+                </li>
+                <!-- Step 1.3 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step1-3"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        Choose a way to create an account; there are 4 options!
+                        <img src="img/plex-signup-form.png" alt="Plex Sign Up Form"
+                            class="mt-2 border rounded-lg max-w-full h-auto">
+                    </span>
+                </li>
+                <!-- Step 1.4 -->
+                <li class="flex items-start ">
+                    <div onclick="toggleStep(this)" data-step-id="step1-4"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3 pb-4">
+                        Click on <strong>"Create an Account"</strong>.
+                    </span>
+                </li>
+
+                <div class="flex items-start flex-col p-2 border rounded-lg bg-green-100 dark:bg-green-900">
+                    <span class="ml-3">Step 1 is done 🎉🎉🎉</span>
+                    <span class="ml-3 italic">
+                        Remember the email address you used for signing up. Write it down, tattoo it on your
+                        arm—whatever works!
+                    </span>
+                </div>
+            </ol>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Step 2: Notify Me ❤️</h2>
+            <ol class="space-y-2">
+                <!-- Step 2.1 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step2-1"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3 pb-4">
+                        Send me (Lorenzo) a message containing the email address you used to sign up for Plex.
+                    </span>
+                </li>
+                <div class="mt-6 p-2 border rounded-lg bg-gray-200 dark:bg-gray-800">
+                    <span class="p-2">
+                    I'm not stealing any of your information chill out 😩. I will send you a friend request on Plex. This is how you will access my library.
+                </span>
+            </div>
+            </ol>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Step 3: Accept Plex Friend Request</h2>
+            <ol class="space-y-2">
+                <!-- Step 3.1 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step3-1"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        Wait for an email invitation. It should arrive within a few minutes. 🕙
+                    </span>
+                </li>
+                <!-- Step 3.2 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step3-2"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3 pb-4">
+                        Open the invitation email and click on <strong>"I accept the invitation"</strong>.
+                        <img src="img/plex-invite-email.png" alt="Plex Invitation Email"
+                            class="mt-2 border rounded-lg max-w-full h-auto">
+                    </span>
+                </li>
+                <!-- Step 3.3 -->
+                <li class="flex items-start mt-6 p-2 border rounded-lg bg-gray-200 dark:bg-gray-800">
+                    
+                    <span class="ml-3">
+                        ❗Log in to your Plex account if prompted.
+                    </span>
+                </li>
+                <!-- Step 3.4 -->
+                <li class="flex items-start pt-4">
+                    <div onclick="toggleStep(this)" data-step-id="step3-4"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3 pb-4">
+                        My library should now be accessible in your Plex account. 🎥
+                        <img src="img/plex-library.png" alt="Plex Invitation Email" class="mt-2 border rounded-lg max-w-full h-auto">
+                    </span>
+                </li>
+                <li class="flex items-start mt-6 p-2 border rounded-lg bg-yellow-200 dark:bg-yellow-800">
+                    <span class="p-2">
+                        ⚠️ This my vary slightly if you are doing it on mobile. Regardless whatever plex asks you just accept it and you should be good.
+                    </span>
+                </li>
+                <li class="flex items-start mt-6 p-2 border rounded-lg bg-gray-200 dark:bg-gray-800">
+                    <span class="p-2">Note❗: If you don't see my library, please try to look for it on the side bar and if you still can't find it
+                    there
+                    then check in the <strong>"more >"</strong> section.</span>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Reassuring Message -->
+        <div class="mb-8 p-4 border rounded-lg bg-green-100 dark:bg-green-900">
+            <h2 class="text-2xl font-semibold mb-4">You are ready to watch ! 🎉🎉🎉</h2>
+            <p class="text-lg">
+                You are all set to watch movies and shows on my Plex library. You can now access plex with your account on any device you want tv, tablet, phone and computer !! Everything will be there! <br>
+                <br>This doesn't end here... Let's kick it up a notch and make it even better by configuring <strong>Overseerr</strong> so you can add on your own movies and 
+                shows you want to watch with just a click of a button. 🖱️ <br><br>
+                You've got this! 💪
+            </p>
+        </div>
+        <!-- Step 4 -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Step 4: Accessing Overseerr</h2>
+            <li class="flex items-start mt-6 p-2 border rounded-lg bg-gray-200 dark:bg-gray-800">
+                <span class="p-2">
+                    ❗These steps are necessary only the <strong>first time</strong> you sign up! And exist for <strong>security</strong> purposes. You wont have to do this again, the app will log you straight in.❗
+                </span>
+            </li>
+            <ol class="space-y-2 pt-4">
+                <!-- Step 4.1 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step4-1"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        Go to <a href="https://overseerr.lorenzoorio.com" target="_blank"
+                            class="text-blue-600 underline">overseerr.lorenzoorio.com</a>. You will be met with a Cloudflare page. These nice guys handle the security for me. Don't be scared 😅
+                            <img src="img/cloudflare-page.png" alt="Cloudflare page" class="mt-2 border rounded-lg max-w-full h-auto">
+                    </span>
+                </li>
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step4-1-1"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        Enter the email that you used for your Plex account and click on <strong>"Send me a code"</strong>.
+                    </span>
+                </li>
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step4-1-2"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                          <strong>"Send me a code"</strong>.
+                    </span>
+                </li>
+                <!-- Step 4.2 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step4-2"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        Click on <strong>"Create an account"</strong> instead of logging in with Plex.
+                        <img src="images/overseerr-create-account.png" alt="Overseerr Create Account"
+                            class="mt-2 border rounded-lg max-w-full h-auto">
+                    </span>
+                </li>
+                <!-- Step 4.3 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step4-3"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        Use the email address you used for Plex and the temporary password provided to you by Lorenzo,
+                        which is <strong>"changemepls"</strong>.
+                    </span>
+                </li>
+                <!-- Step 4.4 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step4-4"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        Click on <strong>"Sign Up"</strong>. You're almost there!
+                    </span>
+                </li>
+                <!-- Step 4.5 (Nested Steps) -->
+                <li class="flex items-start">
+                    <div class="ml-8">
+                        <ol class="space-y-2">
+                            <!-- Step 4.5.1 -->
+                            <li class="flex items-start">
+                                <div onclick="toggleStep(this)" data-step-id="step4-5-1"
+                                    class="circle mt-1 w-4 h-4 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                                </div>
+                                <span class="ml-3">
+                                    Once logged in, immediately change your password:
+                                </span>
+                            </li>
+                            <!-- Step 4.5.2 -->
+                            <li class="flex items-start ml-6">
+                                <div onclick="toggleStep(this)" data-step-id="step4-5-2"
+                                    class="circle mt-1 w-3 h-3 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                                </div>
+                                <span class="ml-3">
+                                    Click on your profile icon at the top right corner.
+                                </span>
+                            </li>
+                            <!-- Step 4.5.3 -->
+                            <li class="flex items-start ml-6">
+                                <div onclick="toggleStep(this)" data-step-id="step4-5-3"
+                                    class="circle mt-1 w-3 h-3 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                                </div>
+                                <span class="ml-3">
+                                    Select <strong>"Settings"</strong>.
+                                </span>
+                            </li>
+                            <!-- Step 4.5.4 -->
+                            <li class="flex items-start ml-6">
+                                <div onclick="toggleStep(this)" data-step-id="step4-5-4"
+                                    class="circle mt-1 w-3 h-3 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                                </div>
+                                <span class="ml-3">
+                                    Go to the <strong>"Password"</strong> section.
+                                </span>
+                            </li>
+                            <!-- Step 4.5.5 -->
+                            <li class="flex items-start ml-6">
+                                <div onclick="toggleStep(this)" data-step-id="step4-5-5"
+                                    class="circle mt-1 w-3 h-3 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                                </div>
+                                <span class="ml-3">
+                                    Enter a new password and save changes.
+                                </span>
+                            </li>
+                        </ol>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Step 5: Adjust Overseerr Settings</h2>
+            <p>
+                To customize your viewing experience and reduce unwanted content:
+            </p>
+            <ol class="space-y-2 mt-2">
+                <!-- Step 5.1 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step5-1"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        Click on your profile icon and select <strong>"Settings"</strong>.
+                    </span>
+                </li>
+                <!-- Step 5.2 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step5-2"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        Navigate to the <strong>"Regions"</strong> section.
+                    </span>
+                </li>
+                <!-- Step 5.3 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step5-3"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        Set the region to <strong>"United States"</strong>.
+                        <img src="images/overseerr-region-settings.png" alt="Overseerr Region Settings"
+                            class="mt-2 border rounded-lg max-w-full h-auto">
+                    </span>
+                </li>
+                <!-- Step 5.4 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step5-4"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        Save your changes. Voilà! Less weird stuff, more awesome movies.
+                    </span>
+                </li>
+            </ol>
+            <p class="mt-4">
+                This will help filter out unwanted content and improve your browsing experience.
+            </p>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Step 6: Start Enjoying Movies and Shows</h2>
+            <ol class="space-y-2">
+                <!-- Step 6.1 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step6-1"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        You're all set! You can now browse and request movies or TV shows through Overseerr, and watch
+                        them via your Plex account.
+                    </span>
+                </li>
+                <!-- Step 6.2 -->
+                <li class="flex items-start">
+                    <div onclick="toggleStep(this)" data-step-id="step6-2"
+                        class="circle mt-1 w-5 h-5 rounded-full border-2 border-gray-500 cursor-pointer flex-shrink-0">
+                    </div>
+                    <span class="ml-3">
+                        If you have any questions or need assistance, feel free to reach out to me.
+                    </span>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12">
+            <p class="text-gray-600 dark:text-gray-400">&copy; 2024 Lorenzo Orio</p>
+            <p class="text-gray-500 dark:text-gray-500">No animals were harmed in the making of this guide.</p>
+        </div>
+    </div>
+</body>
+
+</html>
